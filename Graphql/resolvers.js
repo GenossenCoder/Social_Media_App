@@ -47,7 +47,7 @@ const resolvers = {
             const newPost = new Post({
                 user: user.id,
                 username: user.username,
-                createdAt: new new Date().toDateString(),
+                createdAt: new Date().toDateString(),
                 theme,
                 title,
                 content
