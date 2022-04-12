@@ -47,7 +47,7 @@ const resolvers = {
             const newPost = new Post({
                 user: user.id,
                 username: user.username,
-                createdAt: new Date().toISOString(),
+                createdAt: new new Date().toDateString(),
                 theme,
                 title,
                 content
@@ -112,7 +112,7 @@ const resolvers = {
                 email,
                 username,
                 password,
-                createdAt: new Date().toISOString()
+                createdAt:new Date().toDateString()
             });
             //writing to the Database
             const res = await newUser.save();
@@ -158,7 +158,7 @@ const resolvers = {
                 content,
                 tilte,
                 username,
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toDateString()
               });
               await post.save();
               return post;
@@ -194,7 +194,7 @@ const resolvers = {
                             return "good";
                         }
                     }
-                    post.comments[commentIndex].likes.push({"username":username, "createdAt":new Date().toISOString()});
+                    post.comments[commentIndex].likes.push({"username":username, "createdAt":new Date().toDateString()});
                     await post.save();
                     return "good";
                 } else {
@@ -214,7 +214,7 @@ const resolvers = {
                     }
 
                 }
-                post.likes.push({"username":username, "createdAt":new Date().toISOString()})
+                post.likes.push({"username":username, "createdAt":new Date().toDateString()});
                 await post.save();
                 return post;
             }
