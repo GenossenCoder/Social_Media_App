@@ -99,7 +99,7 @@ const resolvers = {
             if(user){
                 //The apollo-error is for the frontend so that it's esier to handle
                 throw new UserInputError('Username is taken',{
-                    errrors:{
+                    errors:{
                         username: 'This username is taken'
                     }
                 })
