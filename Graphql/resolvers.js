@@ -44,6 +44,17 @@ const resolvers = {
 
         async createPost(_,{theme, title, content}, context){
             const user =checkAuth(context);
+            if(theme.trim()===''){
+                throw new Error('Theme must not be empty')
+            }
+            if(title.trim()===''){
+                throw new Error('Title must not be empty')
+            }
+            if(content.trim()===''){
+                throw new Error('Content must not be empty')
+            }
+
+
             const newPost = new Post({
                 user: user.id,
                 username: user.username,
@@ -208,7 +219,7 @@ const resolvers = {
             if(post){
                 for(w in post.likes){
                     if(post.likes[w].username==username){
-                        post.likes.splice(w)
+                        post.likes.splice(w,1)
                         await post.save();
                         return post;
                     }
