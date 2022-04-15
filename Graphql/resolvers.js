@@ -152,7 +152,7 @@ const resolvers = {
             }
 
         },
-        createComment: async (_, { postId, content, tilte }, context) => {
+        createComment: async (_, { postId, content, title }, context) => {
             const { username } = checkAuth(context);
             if (content.trim() === '') {
               throw new UserInputError('Empty comment', {
@@ -161,13 +161,20 @@ const resolvers = {
                 }
               });
             }
+            if (title.trim() === '') {
+                throw new UserInputError('Empty comment', {
+                  errors: {
+                    body: 'Title body must not empty'
+                  }
+                });
+              }
       
             const post = await Post.findById(postId);
       
             if (post) {
               post.comments.unshift({
                 content,
-                tilte,
+                title,
                 username,
                 createdAt: new Date().toDateString()
               });
