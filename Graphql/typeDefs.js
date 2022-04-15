@@ -51,8 +51,5 @@ const typeDefs = gql`
         likePost(postId:ID!):Post!
         likeComment(postId:String! commentId:String!):Post
     }
-    type Subscription{
-    newPost: Post!
-    }
 `
 module.exports = typeDefs
