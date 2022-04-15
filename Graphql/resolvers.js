@@ -207,7 +207,7 @@ const resolvers = {
                 if(post.comments[commentIndex]){
                     for(w in post.comments[commentIndex].likes){
                         if(post.comments[commentIndex].likes[w].username==username){
-                            post.comments[commentIndex].likes.splice(w)
+                            post.comments[commentIndex].likes.splice(w,1)
                             await post.save();
                             return post;
                         }
