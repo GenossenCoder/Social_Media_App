@@ -209,7 +209,7 @@ const resolvers = {
                         if(post.comments[commentIndex].likes[w].username==username){
                             post.comments[commentIndex].likes.splice(w)
                             await post.save();
-                            return "good";
+                            return post;
                         }
                     }
                     post.comments[commentIndex].likes.push({"username":username, "createdAt":new Date().toDateString()});
