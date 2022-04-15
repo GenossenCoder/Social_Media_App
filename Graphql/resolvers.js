@@ -214,7 +214,7 @@ const resolvers = {
                     }
                     post.comments[commentIndex].likes.push({"username":username, "createdAt":new Date().toDateString()});
                     await post.save();
-                    return "good";
+                    return post;
                 } else {
                     throw new AuthenticationError('Comment not found')
                 }
