@@ -37,9 +37,16 @@ const typeDefs = gql`
         confirmPassword: String!
         email: String!
     }
+    type Theme{
+        theme: String!
+        posts:[String]
+    }
     type Query{
         getPosts:[Post]
         getPost(postId:ID!): Post!
+        getThemes:[Theme]
+        getTheme(theme:String!): Theme!
+        getThemedPosts(theme:String!):[Post]
     }
     type Mutation{
         register(registerInput: RegisterInput):User!

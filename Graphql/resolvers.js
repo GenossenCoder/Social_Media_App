@@ -5,6 +5,7 @@ const {UserInputError} = require('apollo-server')
 
 const Post = require('.././models/Post');
 const User = require('.././models/User');
+const Theme = require('.././models/Theme');
 const {validateRegisterInput,validateLoginInput} = require('../util/validators')
 const checkAuth = require('../util/user.auth')
 const SECRET_KEY = process.env.SECRET_KEY
@@ -19,6 +20,24 @@ function jwtinit(user){
 
 const resolvers = {
     Query:{
+        async getThemedPosts(_,{theme}){
+            const themes = await Post.find({theme: theme})
+            if(themes){
+                return themes
+            }
+        },
+        async getThemes(){
+            const themes = await Theme.find()
+            if(themes){
+                return themes
+            }
+        },
+        async getTheme(_, {theme}){
+            const themes = await Theme.findOne({theme: theme})
+            if(themes){
+                return themes
+            }
+        },
         async getPosts(){
             try{
                 const posts= await Post.find().sort({createdAt: -1});
@@ -54,7 +73,6 @@ const resolvers = {
                 throw new Error('Content must not be empty')
             }
 
-
             const newPost = new Post({
                 user: user.id,
                 username: user.username,
@@ -63,11 +81,23 @@ const resolvers = {
                 title,
                 content
             });
+            const post = await newPost.save();
+            const theme_post = await Theme.findOne({theme: theme})
+            
+            const newTheme = new Theme({
+                theme,
+                posts: [post._id],
+            });
 
-            const post = newPost.save();
+            if(theme_post){
+                theme_post.posts.push(post._id);
+                await theme_post.save()
+            }else
+            {
+            await newTheme.save()
+            }
             return post;
         },
-
         async login(_,{username,password}){
             const {valid, errors} = validateLoginInput(username,password)
             //Checking if all fields are valid
@@ -94,8 +124,6 @@ const resolvers = {
                 token
             }
         },
-
-
         async register(_, {registerInput:{username,email,password,confirmPassword}},context, info)
         {
             //Validate Userinput
