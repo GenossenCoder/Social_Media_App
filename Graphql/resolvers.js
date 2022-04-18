@@ -20,6 +20,11 @@ function jwtinit(user){
 
 const resolvers = {
     Query:{
+        async search(_,{filter}){
+            const results = await Post.find({ "title": { "$regex": filter, "$options": "i" }})
+            
+            return results
+        },
         async getThemedPosts(_,{theme}){
             const themes = await Post.find({theme: theme})
             if(themes){
