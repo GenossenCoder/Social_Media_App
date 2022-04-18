@@ -48,6 +48,7 @@ const typeDefs = gql`
         getTheme(theme:String!): Theme!
         getThemedPosts(theme:String!):[Post]
         search(filter: String!):[Post!]
+        getUser(id:String!): User!
     }
     type Mutation{
         register(registerInput: RegisterInput):User!

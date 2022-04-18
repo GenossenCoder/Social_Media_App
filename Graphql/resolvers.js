@@ -20,6 +20,18 @@ function jwtinit(user){
 
 const resolvers = {
     Query:{
+        async getUser(_,{id},context){
+            const auth = checkAuth(context)
+            if(auth){
+                const user = await User.findOne({id:id})
+                if(user){
+                    return user
+                }
+                else{
+                    throw new UserInputError('User not found')
+                }
+            }
+        },
         async search(_,{filter}){
             const results = await Post.find({ "title": { "$regex": filter, "$options": "i" }})
             
