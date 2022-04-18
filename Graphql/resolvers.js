@@ -23,7 +23,7 @@ const resolvers = {
         async getUser(_,{id},context){
             const auth = checkAuth(context)
             if(auth){
-                const user = await User.findOne({id:id})
+                const user = await User.findOne({_id:id})
                 if(user){
                     return user
                 }
