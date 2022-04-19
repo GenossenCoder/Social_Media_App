@@ -113,6 +113,9 @@ const resolvers = {
             {
             await newTheme.save()
             }
+            const USER = await User.findOne({_id: user.id})
+            USER.Posts.push({id:post.id, title:title, createdAt:new Date().toDateString()})
+            await USER.save()
             return post;
         },
         async login(_,{username,password}){

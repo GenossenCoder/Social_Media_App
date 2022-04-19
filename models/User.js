@@ -4,5 +4,12 @@ const userSchema= new Schema({
     password: String,
     email:String,
     createdAt:String,
+    Posts:[
+    {        
+        id: String,
+        createdAt: String,
+        title: String,
+    }
+    ]
 })
 module.exports = model('User', userSchema);

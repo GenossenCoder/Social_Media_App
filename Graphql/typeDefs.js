@@ -23,12 +23,18 @@ const typeDefs = gql`
         username: String,
         createdAt:String,
     }
+    type UserPost{
+        id: String!, 
+        createdAt: String!,
+        title: String!
+    }
     type User{
         id: ID!
         email: String!
         token: String!
         username: String!
         createdAt: String!
+        Posts: [UserPost]
         
     }
     input RegisterInput{

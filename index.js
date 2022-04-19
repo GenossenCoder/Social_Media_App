@@ -12,7 +12,7 @@ const server =new ApolloServer({
     resolvers,
     context: ({req})=>({req})
 });
-mongoose.connect(process.env.MONGOURI,{useNewURLParser:true})
+mongoose.connect(process.env.MONOGOURI,{useNewURLParser:true})
     .then(()=>{
         console.log('mongodb')
         return server.listen(PORT)
